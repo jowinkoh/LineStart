@@ -29,7 +29,6 @@
 		</div>
 	</body>
 </html>
-<div style="display: none;">
-https://abc.com/?code=o4wdE7RSBZfGQ1twKTbF&state=123abc
-</div>
+
+<!-- https://abc.com/?code=o4wdE7RSBZfGQ1twKTbF&state=123abc -->
 
