@@ -1,18 +1,32 @@
 <?php
-	function getJoke($firstNme, $lastName)
+
+	function getJoke()
 	{
+		$data = array(
+			'grant_type' => "",
+			'code' => "",
+			'redirect_uri' => "",
+			'client_id' => "",
+			'client_secret' => "",
+		);
+
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL,"https://ads.line.me/api/v2.0/authority_delegations/get");
+
+		curl_setopt($ch, CURLOPT_URL,"https://api.line.me/v2/oauth/accessToken");
 		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_HTTPGET, 1);
-		
-		$getJoke = curl_exec($ch);
-		if($JokeJSON == FALSE){
-			die("cURL Error:" .curlerror($ch));
-		}
-		
-		$JokeObj = jason_dacode($JokeJSON, true);
-		return $JokeObj{'value'}{'joke'};
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Content-Type: application/x-www-form-urlencoded'
+		));
+
+		// Receive server response ...
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$server_output = curl_exec($ch);
+
+		curl_close ($ch);
+
+		print_r($server_output);
 	}
 ?>
 
@@ -25,10 +39,7 @@
 	<body>
 		<h3>Line API Test</h3>
 		<div id="JokeDiv">
-			<?php getJoke("") ?>
+			<?php getJoke(); ?>
 		</div>
 	</body>
 </html>
-
-<!-- https://abc.com/?code=o4wdE7RSBZfGQ1twKTbF&state=123abc -->
-
